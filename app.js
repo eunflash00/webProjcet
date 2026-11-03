@@ -55,9 +55,9 @@ function render() {
     if (r.id === 'exercise') {
       const label = document.createElement('label');
       label.className = 'exercise-choice';
-      const caption = document.createElement('span'); caption.textContent = '오늘 한 운동';
+      const caption = document.createElement('span'); caption.textContent = '운동 종류 선택';
       const select = document.createElement('select'); select.setAttribute('aria-label', '오늘 한 운동');
-      for (const [value, text] of [['', '운동 선택'], ['running', '달리기'], ['stairs', '계단'], ['squats', '스쿼트']]) {
+      for (const [value, text] of [['', '선택하세요'], ['running', '달리기'], ['stairs', '계단'], ['squats', '스쿼트']]) {
         const option = document.createElement('option'); option.value = value; option.textContent = text; select.append(option);
       }
       select.value = state.days[selected]?.exerciseType || '';
