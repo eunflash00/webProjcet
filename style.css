@@ -100,3 +100,31 @@ html{-webkit-text-size-adjust:100%}button,input,a{-webkit-tap-highlight-color:tr
   .exercise-choice select{font-size:16px;min-height:28px;padding:1px 7px}
 }
 @media(max-width:359px){.routine{grid-template-columns:minmax(0,1fr) 116px 21px}.routine h3{font-size:16px}}
+
+/* Final compact mobile row: check, icon, title, time, and optional exercise choice. */
+@media(max-width:640px){
+  .routine{grid-template-columns:20px 24px minmax(0,1fr) 64px;column-gap:6px;min-height:40px;padding:5px 8px}
+  .routine .check{grid-column:1;grid-row:1;width:20px;height:20px;font-size:10px}
+  .routine .icon{grid-column:2;grid-row:1;width:24px;height:24px;font-size:16px}
+  .routine-info{grid-column:3;grid-row:1;min-width:0}
+  .routine h3{font-size:16px;line-height:1.2;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .routine p{display:none}
+  .time-wrap{grid-column:4;grid-row:1;width:64px}
+  .time-wrap input{box-sizing:border-box;width:64px;min-width:0;height:20px;min-height:20px;padding:0 2px;font-size:8px}
+  .routine:has(.exercise-choice){grid-template-columns:20px 24px minmax(0,1fr) 58px 62px}
+  .routine:has(.exercise-choice) .time-wrap{grid-column:4;width:58px}
+  .routine:has(.exercise-choice) .time-wrap input{width:58px}
+  .exercise-choice{grid-column:5;grid-row:1;width:62px;margin:0;padding:0;border:0;display:block}
+  .exercise-choice select{box-sizing:border-box;width:62px;min-width:0;height:20px;min-height:20px;padding:0 2px;font-size:8px;border-radius:5px}
+}
+@media(max-width:359px){
+  .routine,.routine:has(.exercise-choice){grid-template-columns:20px minmax(0,1fr) 58px}
+  .routine .icon{display:none}
+  .routine-info{grid-column:2}
+  .time-wrap,.routine:has(.exercise-choice) .time-wrap{grid-column:3;width:58px}
+  .time-wrap input,.routine:has(.exercise-choice) .time-wrap input{width:58px}
+  .routine:has(.exercise-choice){grid-template-columns:20px minmax(0,1fr) 54px 58px}
+  .routine:has(.exercise-choice) .time-wrap{grid-column:3;width:54px}
+  .routine:has(.exercise-choice) .time-wrap input{width:54px}
+  .exercise-choice{grid-column:4;width:58px}.exercise-choice select{width:58px}
+}
