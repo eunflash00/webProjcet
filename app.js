@@ -1,6 +1,6 @@
 'use strict';
 const defaults = [
-  { id: 'reading', title: '아침 독서 10분', detail: '책과 함께 여는 차분한 아침', icon: '▤', time: '07:00' },
+  { id: 'reading', title: '독서 20분', detail: '책과 함께 여는 차분한 시간', icon: '▤', time: '07:00' },
   { id: 'algorithm', title: '알고리즘 문제 1개', detail: '하루 한 문제, 생각하는 힘 기르기', icon: '⌘', time: '09:00' },
   { id: 'english', title: '매일 영어 10분', detail: '짧게라도 매일, 영어와 가까워지기', icon: 'Aa', time: '12:00' },
   { id: 'exercise', title: '밤 9시 운동', detail: '달리기 · 계단 · 스쿼트 중 하나', icon: '↗', time: '21:00' },
