@@ -72,18 +72,21 @@ function render() {
     };
     $('routines').append(row);
   });
-  $('week').replaceChildren();
-  for (let offset = -6; offset <= 0; offset++) {
+  $('history-grid').replaceChildren();
+  let successfulDays = 0;
+  for (let offset = -99; offset <= 0; offset++) {
     const day = new Date(); day.setHours(12,0,0,0); day.setDate(day.getDate()+offset);
     const value = dateKey(day), count = countFor(value);
-    const item = document.createElement('div'); item.className = `day${selected === value ? ' selected' : ''}`;
-    const label = document.createElement('span'); label.textContent = day.toLocaleDateString('ko-KR',{weekday:'short'});
-    const button = document.createElement('button'); button.textContent = count === 5 ? '✓' : day.getDate();
-    button.style.background = count ? `rgba(108,133,88,${.16 + count * .12})` : '';
-    button.setAttribute('aria-label', `${value}, ${count}개 완료`); button.onclick = () => { selected = value; render(); };
-    const score = document.createElement('span'); score.textContent = `${count}/5`;
-    item.append(label, button, score); $('week').append(item);
+    const filled = count >= 3;
+    if (filled) successfulDays++;
+    const block = document.createElement('button');
+    block.className = `history-block${filled ? ' filled' : ''}${selected === value ? ' selected' : ''}${offset === 0 ? ' today' : ''}`;
+    block.setAttribute('aria-label', `${day.toLocaleDateString('ko-KR')}, ${count}개 완료${filled ? ', 목표 달성' : ''}`);
+    block.title = `${value} · ${count}/5 완료`;
+    block.onclick = () => { selected = value; render(); };
+    $('history-grid').append(block);
   }
+  $('history-summary').textContent = `3개 이상 완료한 날 ${successfulDays}일`;
 }
 function shiftDate(amount) { const day = parseDate(selected); day.setDate(day.getDate()+amount); selected = dateKey(day); render(); }
 $('prev').onclick = () => shiftDate(-1); $('next').onclick = () => shiftDate(1);

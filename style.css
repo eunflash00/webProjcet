@@ -35,6 +35,30 @@ html{-webkit-text-size-adjust:100%}button,input,a{-webkit-tap-highlight-color:tr
 @media(max-width:359px){
   .app{padding-left:10px;padding-right:10px}.routine{grid-template-columns:23px minmax(0,1fr) 99px 30px;column-gap:6px;padding:8px}.routine .icon{width:23px;height:26px;font-size:14px}.routine h3{font-size:11px}.routine p{font-size:8px}.check{width:30px;height:32px}.time-wrap input{width:99px}.section-heading p{font-size:9px}h1{font-size:20px}
 }
+
+/* One hundred-day completion grid. A day fills after three completed routines. */
+.history-panel{margin:0 0 18px;padding:17px 19px;border:1px solid #e0e2d8;border-radius:12px;background:#fffefa}
+.history-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.history-heading h2{font-size:13px;margin:0}.history-heading span{font-size:10px;color:#849087}
+#history-grid{display:grid;grid-template-columns:repeat(25,1fr);gap:4px}
+.history-block{aspect-ratio:1;border:0;border-radius:3px;background:#e7ebdf;padding:0;min-width:0}.history-block.filled{background:#6c8558}.history-block.today{box-shadow:inset 0 0 0 1px #91a47e}.history-block.selected{outline:2px solid #304b3c;outline-offset:1px}
+@media(min-width:641px){
+  .routine:has(.exercise-choice){flex-wrap:nowrap}.routine:has(.exercise-choice) .exercise-choice{order:1;margin:0;width:auto}.routine:has(.exercise-choice) .time-wrap{order:2}
+}
+@media(max-width:640px){
+  .history-panel{margin:8px 0;padding:9px 10px;border-radius:10px}.history-heading{margin-bottom:7px}.history-heading h2{font-size:11px}.history-heading span{font-size:8px}
+  #history-grid{grid-template-columns:repeat(20,1fr);gap:3px}.history-block{border-radius:2px}
+  .overview{width:100%}
+  .routine:has(.exercise-choice){grid-template-columns:20px 24px minmax(0,1fr) 62px 58px}
+  .routine:has(.exercise-choice) .exercise-choice{grid-column:4;width:62px}
+  .routine:has(.exercise-choice) .time-wrap{grid-column:5;width:58px}
+  .routine:has(.exercise-choice) .time-wrap input{width:58px}
+}
+@media(max-width:359px){
+  .routine:has(.exercise-choice){grid-template-columns:20px minmax(0,1fr) 58px 54px}
+  .routine:has(.exercise-choice) .exercise-choice{grid-column:3;width:58px}
+  .routine:has(.exercise-choice) .time-wrap{grid-column:4;width:54px}
+  .routine:has(.exercise-choice) .time-wrap input{width:54px}
+}
 /* Short screens use a denser summary while retaining every routine and date control. */
 @media(max-width:640px) and (max-height:740px){
   header{height:48px}.intro{padding:8px 0}h1{font-size:19px}.overview{min-height:68px;padding:7px 12px}.overview p{display:none}.ring{width:48px;height:48px}.ring>span{width:40px;height:40px;font-size:16px}.routine-section{margin-top:10px}.routine{min-height:54px;padding-top:7px;padding-bottom:7px;margin:5px 0}.bottom-grid{margin-top:8px}.week-panel{padding:8px 10px}.notice{margin:6px 0}
@@ -127,4 +151,24 @@ html{-webkit-text-size-adjust:100%}button,input,a{-webkit-tap-highlight-color:tr
   .routine:has(.exercise-choice) .time-wrap{grid-column:3;width:54px}
   .routine:has(.exercise-choice) .time-wrap input{width:54px}
   .exercise-choice{grid-column:4;width:58px}.exercise-choice select{width:58px}
+}
+
+/* Final requested order: exercise choice before time, and full-width mobile progress. */
+@media(min-width:641px){
+  .routine:has(.exercise-choice){flex-wrap:nowrap}
+  .routine:has(.exercise-choice) .exercise-choice{order:1;margin:0;width:auto}
+  .routine:has(.exercise-choice) .time-wrap{order:2}
+}
+@media(max-width:640px){
+  .overview{width:100%}
+  .routine:has(.exercise-choice){grid-template-columns:20px 24px minmax(0,1fr) 62px 58px}
+  .routine:has(.exercise-choice) .exercise-choice{grid-column:4;grid-row:1;width:62px}
+  .routine:has(.exercise-choice) .time-wrap{grid-column:5;grid-row:1;width:58px}
+  .routine:has(.exercise-choice) .time-wrap input{width:58px}
+}
+@media(max-width:359px){
+  .routine:has(.exercise-choice){grid-template-columns:20px minmax(0,1fr) 58px 54px}
+  .routine:has(.exercise-choice) .exercise-choice{grid-column:3;width:58px}
+  .routine:has(.exercise-choice) .time-wrap{grid-column:4;width:54px}
+  .routine:has(.exercise-choice) .time-wrap input{width:54px}
 }
