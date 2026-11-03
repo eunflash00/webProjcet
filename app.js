@@ -8,6 +8,7 @@ const defaults = [
 ];
 const key = 'harugyeol-v1';
 let state = { times: {}, days: {}, notified: {} };
+let installPrompt;
 let storageAvailable = true;
 try {
   const saved = JSON.parse(localStorage.getItem(key));
@@ -104,6 +105,26 @@ $('notify').onclick = async () => {
     toast(permission === 'granted' ? '알림을 켰어요. 앱이 열려 있을 때 정해진 시간에 알려드려요.' : '시스템 알림을 허용하지 않았어요. 앱 안 알림은 동작합니다.');
   } catch { toast('알림을 설정할 수 없어요. HTTPS 또는 로컬 개발 환경에서 사용해 주세요.'); }
 };
+$('install').onclick = async () => {
+  if (installPrompt) {
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt = undefined;
+    $('install').hidden = true;
+    return;
+  }
+  toast('iPhone은 Safari 공유 메뉴에서 “홈 화면에 추가”를 선택해 주세요.');
+};
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  installPrompt = event;
+  $('install').hidden = false;
+});
+window.addEventListener('appinstalled', () => {
+  installPrompt = undefined;
+  $('install').hidden = true;
+  toast('하루결이 설치됐어요.');
+});
 function checkReminders(now = new Date()) {
   const day = dateKey(now), minute = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
   defaults.forEach(r => {
@@ -120,3 +141,8 @@ window.addEventListener('storage', event => { if (event.key === key) { try { con
 document.addEventListener('visibilitychange', () => { if (!document.hidden) { notificationLabel(); checkReminders(); } });
 render(); notificationLabel(); checkReminders(); setInterval(checkReminders, 15000);
 if (!storageAvailable) $('notice').textContent = '브라우저 저장소를 읽지 못했어요. 저장이 제한될 수 있습니다. 알림은 앱이 열려 있을 때 동작해요.';
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {
+    toast('오프라인 사용 준비에 실패했어요. 인터넷 연결 후 다시 열어 주세요.');
+  }));
+}
