@@ -63,3 +63,11 @@ html{-webkit-text-size-adjust:100%}button,input,a{-webkit-tap-highlight-color:tr
 @media(max-width:640px) and (max-height:740px){
   .routine{min-height:40px;padding-top:5px;padding-bottom:5px;margin:4px 0}.routine h3{margin:0}
 }
+
+/* Keep the completion summary compact instead of spanning the whole page. */
+.overview{width:min(100%,560px)}
+@media(max-width:640px){
+  .overview{width:82%;padding-left:10px;padding-right:10px;gap:8px}
+  .overview .eyebrow{display:block;font-size:7px;letter-spacing:.8px}
+  .overview h2{margin-top:2px}.overview p{font-size:9px}
+}
