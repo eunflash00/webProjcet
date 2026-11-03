@@ -52,6 +52,21 @@ function render() {
       if (!state.days[selected] || typeof state.days[selected] !== 'object') state.days[selected] = {};
       state.days[selected][r.id] = !completed(selected, r.id); save(); render();
     };
+    if (r.id === 'exercise') {
+      const label = document.createElement('label');
+      label.className = 'exercise-choice';
+      const caption = document.createElement('span'); caption.textContent = '오늘 한 운동';
+      const select = document.createElement('select'); select.setAttribute('aria-label', '오늘 한 운동');
+      for (const [value, text] of [['', '운동 선택'], ['running', '달리기'], ['stairs', '계단'], ['squats', '스쿼트']]) {
+        const option = document.createElement('option'); option.value = value; option.textContent = text; select.append(option);
+      }
+      select.value = state.days[selected]?.exerciseType || '';
+      select.onchange = () => {
+        if (!state.days[selected] || typeof state.days[selected] !== 'object') state.days[selected] = {};
+        state.days[selected].exerciseType = select.value; save();
+      };
+      label.append(caption, select); row.append(label);
+    }
     row.querySelector('input').onchange = event => {
       if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(event.target.value)) { render(); return; }
       state.times[r.id] = event.target.value; save(); toast('매일 알림 시간이 변경됐어요.');

@@ -87,3 +87,16 @@ html{-webkit-text-size-adjust:100%}button,input,a{-webkit-tap-highlight-color:tr
 @media(max-width:359px){
   .routine{grid-template-columns:minmax(0,1fr) 96px 21px}
 }
+
+.exercise-choice{display:flex;align-items:center;gap:8px;font-size:12px;color:#68785d}
+.exercise-choice select{font:inherit;color:inherit;background:#f3f4ed;border:1px solid #d8ded2;border-radius:6px;padding:4px;min-height:30px}
+@media(min-width:641px){.routine:has(.exercise-choice){flex-wrap:wrap}.exercise-choice{margin-left:82px;width:calc(100% - 82px)}}
+@media(max-width:640px){
+  /* Match the 16px date input for the primary routine text and symbols. */
+  .routine{grid-template-columns:24px minmax(0,1fr) 116px 21px;column-gap:6px}
+  .routine h3,.routine .icon,.time-wrap input{font-size:16px}
+  .routine p{font-size:10px}.time-wrap input{width:116px;min-height:26px;height:26px}
+  .exercise-choice{grid-column:1/-1;grid-row:2;justify-content:space-between;margin-top:6px;padding-top:5px;border-top:1px solid #e4e8dc;font-size:12px}
+  .exercise-choice select{font-size:16px;min-height:28px;padding:1px 7px}
+}
+@media(max-width:359px){.routine{grid-template-columns:minmax(0,1fr) 116px 21px}.routine h3{font-size:16px}}
